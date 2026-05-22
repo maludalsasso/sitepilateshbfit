@@ -312,6 +312,27 @@ button, input, textarea, select {
   font-size: 1.25rem;
 }
 
+/* Ajuste para os horários no celular */
+@media (max-width: 768px) {
+  .hero-schedule-line {
+    display: flex !important;
+    flex-direction: column !important; /* Força um ficar embaixo do outro */
+    align-items: center !important;    /* Centraliza o bloco na tela */
+    gap: 8px !important;               /* Dá um espacinho sutil entre as duas linhas */
+    text-align: center !important;
+  }
+
+  .hero-schedule-line i {
+    margin-bottom: 5px; /* Deixa o ícone de relógio destacado no topo ou alinhado */
+    font-size: 1.2rem;
+  }
+
+  .schedule-group {
+    display: block !important;
+    white-space: nowrap !important; /* Impede que o "20h" quebre sozinho para baixo */
+  }
+}
+
 .hero-copy .eyebrow {
   font-size: 1.25rem;
   line-height: 1.6;
