@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const mensagemCampo = document.getElementById("message");
       const mensagem = mensagemCampo ? mensagemCampo.value.trim() : "";
       
-    
       if (!mensagem) {
         formStatus.style.color = "#ef4444";
         formStatus.textContent = "Por favor, escreva sua mensagem antes de enviar.";
@@ -89,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cursorGlow.style.top = `${event.clientY}px`;
   });
 
-  // --- 5. ROLAGEM SUAVE 
+  // --- 5. ROLAGEM SUAVE ---
   sectionLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       const targetId = link.getAttribute("href");
@@ -130,4 +129,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
+
+  // --- 7. CONTROLE DO MENU HAMBÚRGUER MOBILE 
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const linksInternos = document.querySelectorAll('.nav-links a');
+
+  if (menuToggle && navLinks) {
+    // Abre e fecha o menu ao clicar nas 3 barrinhas
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Fecha o menu automaticamente quando o usuário clicar em qualquer link
+    linksInternos.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+  }
+}); 

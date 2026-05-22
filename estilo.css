@@ -1707,3 +1707,85 @@ main {
     height: 340px;
   }
 }
+
+/* ==========================================================================
+   RESPONSIVIDADE E MENU HAMBÚRGUER (MOBILE)
+   ========================================================================== */
+
+/* Esconde o botão hambúrguer por padrão no computador */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #ffffff; /* Cor das 3 barrinhas */
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Regras aplicadas APENAS para telas de celular (até 768px) */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Mostra o botão no celular */
+  }
+
+  /* 1. ESCONDE O TEXTO DA LOGO (Fica só o desenho/ícone) */
+  .brand-text {
+    display: none !important;
+  }
+
+  /* 2. TRANSFORMA O MENU EM UMA FAIXA ESCONDIDA */
+  .nav-links {
+    position: fixed;
+    top: 70px; /* Altura da sua barra de topo */
+    right: -100%; /* Joga o menu para fora da tela (lado direito) */
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: rgba(10, 15, 30, 0.95); /* Fundo escuro premium com leve transparência */
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 50px;
+    gap: 30px;
+    transition: right 0.4s ease; /* Efeito suave de deslizar */
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.5);
+  }
+
+  /* Quando o menu estiver ativo, ele desliza para dentro da tela */
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px 0;
+  }
+
+  /* Animação das 3 barrinhas virando um "X" quando aberto */
+  .menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
