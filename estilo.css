@@ -1,0 +1,1709 @@
+/* ==========================================================================
+   1. VARIÁVEIS GLOBAIS E IDENTIDADE
+   ========================================================================== */
+:root {
+  --shadow-hover: 0 18px 50px rgba(245, 243, 248, 0.12);
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.04);
+
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #5f6f8a;
+  --white: #ffffff;
+  --line: #e5e7eb;
+
+  /* Paleta Roxa Identidade HBfit */
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #f3f0ff;
+  --accent-green: #10b981;
+}
+
+/* ==========================================================================
+   2. RESET E BASE
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  color: var(--text);
+  background: 
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.959), transparent 28%),
+    radial-gradient(circle at bottom right, rgb(152, 248, 216), transparent 24%),
+    var(--bg);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+/* ==========================================================================
+   3. UTILITÁRIOS E CLASSES GLOBAIS
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+  width: 100%;
+}
+
+.section-title {
+  margin: 0 0 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.section-center {
+  text-align: center;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block;      
+  padding-bottom: 0.15em;     
+  font-family: 'Playfair Display', serif !important;  
+}
+
+
+.destaque-numero {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.services-eyebrow {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   4. EFEITOS ESPECIAIS (GLOW & REVEAL)
+   ========================================================================== */
+.cursor-glow {
+  position: fixed;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(235, 234, 236), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(14px);
+  transform: translate(-50%, -50%);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   5. HEADER / NAVBAR FLUTUANTE 
+   ========================================================================== */
+
+.topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  z-index: 99999 !important;
+  background: rgba(255, 255, 255, 0.85) !important; 
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+/* 1. CORREÇÃO DA CAIXA INTERNA: É ela quem afasta a logo dos links */
+.topbar .container.nav {
+  display: flex !important;
+  justify-content: space-between !important; /* Afasta a logo para a esquerda e os links para a direita */
+  align-items: center !important;             /* Centraliza os dois elementos na altura */
+  width: 100% !important;
+  max-width: 1200px !important;                /* Limita em telas gigantes */
+  margin: 0 auto !important;
+  padding: 16px 24px !important;               /* Espaçamento interno elegante */
+  box-sizing: border-box !important;
+}
+
+/* Bloco da Logo (Esquerda) */
+.brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+}
+
+.brand-logo {
+  height: 38px !important;
+  width: auto !important;
+  display: block !important;
+}
+
+.brand-text {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.brand-text small {
+  font-size: 0.9rem !important;
+  color: var(--text) !important;
+  white-space: nowrap !important;
+}
+
+/* 2. CORREÇÃO DO BLOCO DE LINKS: Alinha os links na ponta direita */
+.nav-links {
+  display: flex !important;
+  flex-direction: row !important; /* Força os links a ficarem um ao lado do outro */
+  align-items: center !important; /* Centraliza verticalmente todos os textos na altura */
+  gap: 24px !important;           /* Espaçamento confortável entre cada menu */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Os links individuais de texto */
+.nav-links a {
+  white-space: nowrap !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  text-decoration: none !important;
+  transition: color 0.25s !important;
+  line-height: 1 !important;
+  
+  /* Ajuste Óptico de Altura: Como a logo tem o ícone, desce o menu 2px 
+     para dar o alinhamento de leitura perfeito com o texto 'Pilates Funcional' */
+  transform: translateY(2px) !important; 
+}
+
+.nav-links a:hover {
+  color: var(--primary) !important;
+}
+
+/* Ajuste fino para telas menores */
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 14px !important; /* Diminui o espaço entre os menus se a tela for menor antes de virar mobile */
+  }
+}
+/* ==========================================================================
+   6. BOTÕES MESTRES
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.35);
+}
+
+/* ==========================================================================
+   7. SEÇÃO INÍCIO (HERO)
+   ========================================================================== */
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  line-height: 1.15;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.hero-schedule-line {
+  font-size: 1.1rem;
+  color: #4b5563;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* Garante o ícone e o texto centrados entre si */
+  gap: 10px;
+  margin: 30px auto 0 auto; 
+}
+
+.hero-schedule-line i {
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.hero-copy .eyebrow {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #4b5563;
+  max-width: 650px;
+  margin-bottom: 40px;
+  text-align: center;             /* Centraliza o texto dentro da própria caixa */
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+
+.hero-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important; 
+  justify-content: center !important;
+  gap: 16px !important;
+  margin-top: 24px !important;
+  margin-bottom: 24px !important;
+  flex-wrap: wrap !important;     /* Permite que eles quebrem linha elegantemente no celular */
+  width: 100% !important;
+}
+
+.hero-actions .btn-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 32px !important;    
+  height: 54px !important;         
+  border-radius: 30px !important;  /* Mesma curvatura arredondada do card para dar unidade ao design */
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+
+.hero-badge-card {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  
+  background-color: #e6f7f4 !important; 
+  color: #007766 !important;            
+  border: 1px solid #bceae1 !important;  
+  
+  padding: 0 24px !important;   
+  height: 54px !important;         /* Mesma altura fixa do botão */
+  border-radius: 30px !important;  
+  
+  box-shadow: 0 4px 15px rgba(0, 119, 102, 0.04) !important;
+  margin: 0 !important;          
+  box-sizing: border-box !important;
+}
+
+/* Mantém o ícone redondo perfeito dentro do card */
+.hero-badge-card i {
+  font-size: 1.1rem !important;
+  color: #00a88f !important;            
+  background-color: #ffffff !important;  
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;          /* Tamanho fixo da bolinha do ícone */
+  height: 32px !important;
+  flex-shrink: 0 !important;
+}
+
+.hero-badge-card span {
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  white-space: nowrap !important;  /* Impede o texto de quebrar linha e estufar a altura */
+}
+
+/* Efeito sutil ao passar o mouse por cima */
+.hero-badge-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 119, 102, 0.1) !important;
+}
+
+/* ==========================================================================
+   8. SEÇÃO SOBRE (NOSSA HISTÓRIA)
+   ========================================================================== */
+.section-about {
+  background-color: #fbfbfd;
+}
+
+.about-center {
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.about-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.about-text-wrap .eyebrow {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #4b5563;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ==========================================================================
+   9. SEÇÃO MÉTODO
+   ========================================================================== */
+.section-method {
+  background-color: #ffffff;
+}
+
+.method-center {
+  text-align: center;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.method-card-item {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.method-card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.method-icon-box {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+.method-card-item h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.method-card-item p {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.method-info-container {
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* O Card grande que envelopa as duas colunas */
+.info-card-box {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 50px 60px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* Divide em duas colunas equilibradas */
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+  text-align: left; /* Garante que o texto fique alinhado à esquerda internamente */
+  box-shadow: var(--shadow-soft);
+}
+
+/* --- Coluna da Esquerda: Lista de Aulas --- */
+.info-content-col h2 {
+  font-size: 2rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.info-custom-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-custom-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+/* Customização das bolinhas com marcadores coloridos */
+.info-custom-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.info-custom-list li.dot-green::before {
+  color: #64d2b1; /* Verde água identidade */
+}
+
+.info-custom-list li.dot-purple::before {
+  color: var(--primary); /* Roxo identidade */
+}
+
+.info-custom-list li strong {
+  color: var(--text);
+}
+
+/* --- Coluna da Direita: Card de Horários (Fundo Verde Sutil) --- */
+.schedule-highlight-card {
+  background: #f0fdfa; /* Fundo esverdeado bem suave idêntico ao modelo */
+  border: 1px solid #ccfbf1;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.schedule-highlight-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.schedule-highlight-card p {
+  color: #5f6f8a;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+/* Linha final em verde brilhante chamando atenção para o app */
+.app-alert-line {
+  font-size: 0.95rem;
+  color: #14b8a6;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* --- Responsividade da Subseção --- */
+@media (max-width: 992px) {
+  .info-card-box {
+    grid-template-columns: 1fr; /* Quebra para uma coluna em tablets/celulares */
+    padding: 40px 30px;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-content-col h2 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+  }
+  .info-custom-list li {
+    font-size: 0.98rem;
+  }
+  .schedule-highlight-card {
+    padding: 30px 24px;
+  }
+}
+
+/* ==========================================================================
+   ESTILOS: SEÇÃO PLATAFORMAS PARCEIRAS
+   ========================================================================== */
+
+.section-partners {
+  background-color: #f9fafb;
+  padding: 80px 24px;
+  width: 100%;
+}
+
+.partners-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Novo cabeçalho da seção: Centralização Absoluta */
+.partners-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.partners-header h2 {
+  font-size: 2.2rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  color: var(--text);
+  margin: 12px 0 16px 0;
+  line-height: 1.25;
+}
+
+.partners-header p {
+  font-size: 1.1rem;
+  color: #4b5563;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* Container do conteúdo principal: Divide em duas colunas com alturas iguais */
+.partners-main-content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: stretch; /* MÁGICA AQUI: Força as duas colunas a terem a mesma altura */
+  width: 100%;
+}
+
+/* Painel Informativo das Categorias */
+.tier-info-box {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui os textos e joga o botão pro final */
+  height: 100%;
+}
+
+.tier-info-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #166534;
+  margin-bottom: 16px;
+}
+
+.tier-info-title i {
+  font-size: 1.2rem;
+  color: #15803d;
+}
+
+.tier-info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 4px;
+}
+
+.tier-info-list li {
+  font-size: 1.02rem;
+  color: #1e4620;
+  position: relative;
+  padding-left: 18px;
+}
+
+.tier-info-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #15803d;
+  font-size: 1.3rem;
+  line-height: 1;
+  top: -1px;
+}
+
+.tier-info-footer {
+  font-size: 0.9rem;
+  color: #166534;
+  margin-top: 16px !important;
+  margin-bottom: 24px !important;
+  font-style: italic;
+}
+
+/* Botão Whatsapp interno à caixa verde */
+.btn-whatsapp-partner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  width: 100%; /* Botão expande de forma elegante na base do card */
+}
+
+/* Grid de Logos na Direita */
+.partners-logos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between; /* Distribui os 3 logos proporcionalmente à altura da esquerda */
+}
+
+.partner-logo-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  flex: 1; /* Faz cada card esticar proporcionalmente */
+  min-height: 80px;
+}
+
+.logo-placeholder {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.logo-placeholder.wellhub { color: #e6326e; }
+.logo-placeholder.wellhub small { font-size: 0.85rem; font-weight: 400; color: #9ca3af; }
+.logo-placeholder.totalpass { color: #16a04f; }
+.logo-placeholder.gogood { color: #3ba8c9; }
+
+/* --- Responsividade Inteligente --- */
+@media (max-width: 992px) {
+  .partners-main-content {
+    grid-template-columns: 1fr; /* Vira coluna única no mobile/tablet */
+    gap: 32px;
+  }
+  .partners-logos-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .partner-logo-card {
+    width: calc(33.33% - 12px);
+    min-width: 150px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .partners-header h2 {
+    font-size: 1.8rem;
+  }
+  .partners-logos-grid {
+    flex-direction: column;
+  }
+  .partner-logo-card {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================================================
+   10. SEÇÃO SERVIÇOS & BOTA PNEUMÁTICA
+   ========================================================================== */
+.section-services {
+  background-color: #fbfbfd;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+/* Envelopador flexível que isola o badge em uma linha e joga ele pro centro */
+.services-badge-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.services-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-soft);
+  width: fit-content; /* Impede o card de esticar e ocupar a tela inteira */
+}
+
+.services-badge i {
+  font-size: 1.05rem;
+  color: var(--primary-dark);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.service-card-item {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 35px 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.service-icon-box {
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.service-card-item h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.service-card-item p {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.services-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag-item {
+  font-size: 0.78rem;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Banner de Missão */
+.mission-banner {
+  margin: 70px auto 0 auto;
+  padding: 40px;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  max-width: 900px;
+}
+
+.mission-banner h3 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.mission-banner p {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+/* Subseção: Bota Pneumática */
+.boots-section {
+  margin-top: 90px;
+  padding-top: 70px;
+  border-top: 1px solid var(--line);
+}
+
+.boots-header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.boots-content-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.boots-benefits-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.boots-benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.boots-benefits-list li i {
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.boots-video-wrapper {
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line);
+}
+
+.boots-instagram-iframe {
+  width: 100%;
+  height: 520px;
+  display: block;
+}
+
+/* ==========================================================================
+   11. SEÇÃO AMBIENTE (GALERIA) & INSTAGRAM
+   ========================================================================== */
+.section-gallery {
+  background-color: #ffffff;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.gallery-flex-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.gallery-image-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease;
+}
+
+.gallery-image-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Vídeo Fixo do Instagram */
+.section-instagram {
+  background-color: #fbfbfd;
+}
+
+.instagram-center {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.instagram-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.instagram-video-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line);
+}
+
+.instagram-iframe {
+  width: 100%;
+  height: 600px;
+  display: block;
+}
+
+/* ==========================================================================
+   12. SEÇÃO TIME / EQUIPE
+   ========================================================================== */
+.section-team {
+  background-color: #ffffff;
+}
+
+.team-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px auto;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.team-card-item {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+}
+
+.team-image-box {
+  width: 100%;
+  height: 380px;      /* Define uma altura fixa excelente para retratos profissionais */
+  overflow: hidden;   /* Corta qualquer sobra da imagem para não vazar do card */
+  background: #f3f4f6; /* Cor reserva neutra caso a imagem demore a carregar */
+  position: relative;
+}
+
+/* A Foto em si (O segredo do ajuste está aqui) */
+.team-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* <--- ISSO IMPEDE A DUPLICAÇÃO E AJUSTA A FOTO SEM DISTORCER */
+  object-position: center; /* Garante que o foco do corte seja sempre no centro da foto */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.team-card-item:hover .team-img {
+  transform: scale(1.03);
+}
+
+.team-info {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.team-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.team-role {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.team-bio {
+  font-size: 0.96rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.team-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color 0.2s;
+  width: fit-content;
+}
+
+.team-social-link i {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.team-social-link:hover {
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   13. SEÇÃO ALUGUEL DE SALAS
+   ========================================================================== */
+.section-rent {
+  background-color: #ffffff;
+}
+
+.rent-header-top {
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto 60px auto;
+}
+
+.rent-lead-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.rent-columns-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.rent-visual-column {
+  width: 100%;
+}
+
+.rent-image-overlay-box {
+  width: 100%;
+  height: 500px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.rent-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rent-info-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.rent-body-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4b5563;
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 28px;
+}
+
+.rent-body-text strong {
+  color: var(--primary-dark);
+}
+
+.rent-bullet-list {
+  list-style: none;
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rent-bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.rent-bullet-list li i {
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.rent-cta-wrapper {
+  width: fit-content;
+}
+
+/* ==========================================================================
+   14. SEÇÃO LOCALIZAÇÃO
+   ========================================================================== */
+.section-location {
+  background-color: #fcfaf7;
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.location-info-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-lead-text {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-top: 16px;
+}
+
+.location-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 35px 0;
+}
+
+.location-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.location-icon-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.location-text h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.location-text p {
+  font-size: 0.98rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.location-actions {
+  width: fit-content;
+}
+
+.map-wrapper {
+  width: 100%;
+  height: 460px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line);
+}
+
+.map-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ==========================================================================
+   15. SEÇÃO CONTATO
+   ========================================================================== */
+.section-contact {
+  background-color: #ffffff;
+}
+
+.contact-header-centered {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+
+.contact-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+.contact-links-side h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.contact-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.contact-direct-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-line-link {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.contact-line-link i {
+  font-size: 1.5rem;
+  color: var(--primary);
+  width: 24px;
+  text-align: center;
+}
+
+.contact-line-link div {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-line-link strong {
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.contact-line-link span {
+  font-size: 0.88rem;
+  color: #9ca3af;
+}
+
+.contact-line-link:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.contact-line-link.whatsapp-style:hover strong {
+  color: var(--accent-green);
+}
+
+/* Formulário Integrado */
+.clean-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-field label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.form-field textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: var(--text);
+  background-color: #f9fafb;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.08);
+}
+
+.form-submit-btn {
+  width: fit-content;
+  padding: 14px 32px;
+}
+
+/* ==========================================================================
+   FOOTER 
+   ========================================================================== */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  overflow-x: hidden; /* Evita quebras horizontais que geram espaços em branco */
+  background-color: #ffffffc4; /* Se sobrar algum pixel no fim, ele assume a cor do footer */
+}
+
+main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffffc4;
+}
+
+.footer {
+  background-color: #111827;
+  color: #f3f4f6;
+  padding: 70px 0 0 0;
+  width: 100%;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 0.9fr;
+  gap: 50px;
+  padding-bottom: 50px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-col h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.footer-col h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981, #8b5cf6);
+}
+
+.footer-logo {
+  height: 75px;
+  width: auto;
+  display: block !important;
+  margin-bottom: 20px !important; /* Dá um espaço elegante entre a logo e o texto de baixo */
+}
+
+.footer-about {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important; /* Mantém a logo e o texto alinhados à esquerda */
+}
+
+.footer-about p {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* Links Rápidos */
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: #9ca3af;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #8b5cf6;
+  padding-left: 4px;
+}
+
+/* Contato */
+.footer-contact p {
+  color: #9ca3af;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-contact i {
+  color: #8b5cf6;
+  margin-top: 4px;
+  width: 14px;
+  text-align: center;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  background-color: #1f2937;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background-color 0.25s, transform 0.25s;
+}
+
+.footer-socials a:hover {
+  transform: translateY(-2px);
+}
+.footer-socials a:hover:has(.fa-instagram) { background-color: #e1306c; }
+.footer-socials a:hover:has(.fa-facebook-f) { background-color: #1877f2; }
+.footer-socials a:hover:has(.fa-whatsapp) { background-color: #25d366; }
+
+/* Faixa inferior: Totalmente centralizada */
+.footer-bottom {
+  border-top: 1px solid #1f2937;
+  padding: 24px 0;
+  font-size: 0.88rem;
+  color: #9ca3af;
+  background-color: #0b0f19;
+  text-align: center; /* Centraliza o texto */
+  width: 100%;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: center; /* Garante alinhamento flex centralizado */
+  align-items: center;
+  width: 100%;
+}
+
+/* ==========================================================================
+   ESTILO: BOTÃO FLUTUANTE DO WHATSAPP
+   ========================================================================== */
+.whatsapp-floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 9999; /* Garante que fique por cima de absolutamente tudo */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-floating-btn:hover {
+  background-color: #20ba5a;
+  transform: scale(1.1); /* Dá um pulinho sutil ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .whatsapp-floating-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+  }
+}
+
+/* ==========================================================================
+   16. RESPONSIVIDADE MASTER (BREAKPOINTS)
+   ========================================================================== */
+
+/* --- TABLETS (Telas médias) --- */
+@media (max-width: 1024px) {
+  .hero-grid {
+    padding: 120px 24px 60px 24px;
+  }
+  .rent-columns-grid, .location-grid {
+    gap: 40px;
+  }
+  .rent-image-overlay-box {
+    height: 420px;
+  }
+  .gallery-flex-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .boots-content-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .boots-video-wrapper {
+    max-width: 360px;
+  }
+}
+
+/* --- CELULARES (Telas móveis) --- */
+@media (max-width: 768px) {
+  .section {
+    padding: 70px 0;
+  }
+  .hero-copy h1 {
+    font-size: 2.3rem;
+  }
+  .hero-copy br {
+    display: none;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn, .hero-badge-card {
+    width: 100%;
+    justify-content: center;
+  }
+  .rent-columns-grid, .location-grid, .contact-split-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .rent-image-overlay-box, .map-wrapper {
+    height: 360px;
+    border-radius: var(--radius-lg);
+  }
+  .location-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .location-actions, .form-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-flex-grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery-img {
+    height: 340px;
+  }
+}
