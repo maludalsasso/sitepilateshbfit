@@ -130,19 +130,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- 7. CONTROLE DO MENU HAMBÚRGUER MOBILE 
+  // --- CONTROLE DO MENU HAMBÚRGUER MOBILE ---
   const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const linksInternos = document.querySelectorAll('.nav-links a');
+  const navLinks = document.getElementById('navLinks');
+  // Seleciona todos os links de dentro do menu para fechar a gaveta ao clicar em um deles
+  const linksInternos = document.querySelectorAll('#navLinks a');
 
   if (menuToggle && navLinks) {
-    // Abre e fecha o menu ao clicar nas 3 barrinhas
     menuToggle.addEventListener('click', () => {
+      // Liga/Desliga o "X" no botão
       menuToggle.classList.toggle('active');
+      // Liga/Desliga a abertura da gaveta do menu
       navLinks.classList.toggle('active');
     });
 
-    // Fecha o menu automaticamente quando o usuário clicar em qualquer link
+    // Faz o menu sumir automaticamente se o usuário clicar em um link (ex: "Sobre", "Contato")
     linksInternos.forEach(link => {
       link.addEventListener('click', () => {
         menuToggle.classList.remove('active');
